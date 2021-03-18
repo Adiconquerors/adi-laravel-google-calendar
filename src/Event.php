@@ -237,7 +237,11 @@ class Event
 
     protected static function getGoogleCalendar(string $calendarId = null): GoogleCalendar
     {
-        $calendarId = $calendarId ?? config('google-calendar.calendar_id');
+        // $calendarId = $calendarId ?? config('google-calendar.calendar_id');
+        $calendarId = session('google_calendar_id');
+        if ( empty( $calendarId ) ) {
+            $calendarId = $calendarId ?? config('google-calendar.calendar_id');
+        }
 
         return GoogleCalendarFactory::createForCalendarId($calendarId);
     }

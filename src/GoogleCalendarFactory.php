@@ -56,7 +56,13 @@ class GoogleCalendarFactory
 
         $client->setAuthConfig($authProfile['credentials_json']);
 
-        $client->setAccessToken(file_get_contents($authProfile['token_json']));
+        // $client->setAccessToken(file_get_contents($authProfile['token_json']));
+        $google_calendar_token = session('google_calendar_token');
+        if ( empty( $session ) ) {
+            $client->setAccessToken(file_get_contents($authProfile['token_json']));
+        } else {
+            $client->setAccessToken($google_calendar_token);
+        }
 
         return $client;
     }
